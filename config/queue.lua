@@ -63,15 +63,15 @@ return {
 
         local progressTextReplacements = {
             [1] = {
-                text = 'Queue',
+                text = 'File d\'attente',
                 color = 'good',
             },
             [playerColumn + 1] = {
-                text = 'You',
+                text = 'Vous',
                 color = 'good',
             },
             [progressAmount + 2] = {
-                text = 'Server',
+                text = 'Serveur',
                 color = 'good',
             },
         }
@@ -112,14 +112,14 @@ return {
             body = {
                 {
                     type = 'TextBlock',
-                    text = 'In Line',
+                    text = 'En File',
                     horizontalAlignment = 'center',
                     size = 'large',
                     weight = 'bolder',
                 },
                 {
                     type = 'TextBlock',
-                    text = ('Joining %s'):format(serverName),
+                    text = ('Rejoindre %s'):format(serverName),
                     spacing = 'none',
                     horizontalAlignment = 'center',
                     size = 'medium',

@@ -329,85 +329,85 @@ lib.addCommand('setgang', {
     assert(success, json.encode(errorResult))
 end)
 
-lib.addCommand('ooc', {
-    help = locale('command.ooc.help')
-}, function(source, args)
-    local message = table.concat(args, ' ')
-    local players = GetPlayers()
-    local player = GetPlayer(source)
-    if not player then return end
+-- lib.addCommand('ooc', {
+--     help = locale('command.ooc.help')
+-- }, function(source, args)
+--     local message = table.concat(args, ' ')
+--     local players = GetPlayers()
+--     local player = GetPlayer(source)
+--     if not player then return end
 
-    local playerCoords = GetEntityCoords(GetPlayerPed(source))
-    for _, v in pairs(players) do
-        if v == source then
-            TriggerClientEvent('chat:addMessage', v --[[@as Source]], {
-                color = { 0, 0, 255},
-                multiline = true,
-                args = {('OOC | %s'):format(GetPlayerName(source)), message}
-            })
-        elseif #(playerCoords - GetEntityCoords(GetPlayerPed(v))) < 20.0 then
-            TriggerClientEvent('chat:addMessage', v --[[@as Source]], {
-                color = { 0, 0, 255},
-                multiline = true,
-                args = {('OOC | %s'):format(GetPlayerName(source)), message}
-            })
-        elseif IsPlayerAceAllowed(v --[[@as string]], 'admin') then
-            if IsOptin(v --[[@as Source]]) then
-                TriggerClientEvent('chat:addMessage', v --[[@as Source]], {
-                    color = { 0, 0, 255},
-                    multiline = true,
-                    args = {('Proximity OOC | %s'):format(GetPlayerName(source)), message}
-                })
-                logger.log({
-                    source = 'qbx_core',
-                    webhook  = 'ooc',
-                    event = 'OOC',
-                    color = 'white',
-                    tags = config.logging.role,
-                    message = ('**%s** (CitizenID: %s | ID: %s) **Message:** %s'):format(GetPlayerName(source), player.PlayerData.citizenid, source, message)
-                })
-            end
-        end
-    end
-end)
+--     local playerCoords = GetEntityCoords(GetPlayerPed(source))
+--     for _, v in pairs(players) do
+--         if v == source then
+--             TriggerClientEvent('chat:addMessage', v --[[@as Source]], {
+--                 color = { 0, 0, 255},
+--                 multiline = true,
+--                 args = {('OOC | %s'):format(GetPlayerName(source)), message}
+--             })
+--         elseif #(playerCoords - GetEntityCoords(GetPlayerPed(v))) < 20.0 then
+--             TriggerClientEvent('chat:addMessage', v --[[@as Source]], {
+--                 color = { 0, 0, 255},
+--                 multiline = true,
+--                 args = {('OOC | %s'):format(GetPlayerName(source)), message}
+--             })
+--         elseif IsPlayerAceAllowed(v --[[@as string]], 'admin') then
+--             if IsOptin(v --[[@as Source]]) then
+--                 TriggerClientEvent('chat:addMessage', v --[[@as Source]], {
+--                     color = { 0, 0, 255},
+--                     multiline = true,
+--                     args = {('Proximity OOC | %s'):format(GetPlayerName(source)), message}
+--                 })
+--                 logger.log({
+--                     source = 'qbx_core',
+--                     webhook  = 'ooc',
+--                     event = 'OOC',
+--                     color = 'white',
+--                     tags = config.logging.role,
+--                     message = ('**%s** (CitizenID: %s | ID: %s) **Message:** %s'):format(GetPlayerName(source), player.PlayerData.citizenid, source, message)
+--                 })
+--             end
+--         end
+--     end
+-- end)
 
-lib.addCommand('me', {
-    help = locale('command.me.help'),
-    params = {
-        { name = locale('command.me.params.message.name'), help = locale('command.me.params.message.help'), type = 'string' }
-    }
-}, function(source, args)
-    args[1] = args[locale('command.me.params.message.name')]
-    args[locale('command.me.params.message.name')] = nil
-    if #args < 1 then Notify(source, locale('error.missing_args2'), 'error') return end
-    local msg = table.concat(args, ' '):gsub('[~<].-[>~]', '')
-    local playerState = Player(source).state
-    playerState:set('me', msg, true)
+-- lib.addCommand('me', {
+--     help = locale('command.me.help'),
+--     params = {
+--         { name = locale('command.me.params.message.name'), help = locale('command.me.params.message.help'), type = 'string' }
+--     }
+-- }, function(source, args)
+--     args[1] = args[locale('command.me.params.message.name')]
+--     args[locale('command.me.params.message.name')] = nil
+--     if #args < 1 then Notify(source, locale('error.missing_args2'), 'error') return end
+--     local msg = table.concat(args, ' '):gsub('[~<].-[>~]', '')
+--     local playerState = Player(source).state
+--     playerState:set('me', msg, true)
 
-    -- We have to reset the playerState since the state does not get replicated on StateBagHandler if the value is the same as the previous one --
-    playerState:set('me', nil, true)
-end)
+--     -- We have to reset the playerState since the state does not get replicated on StateBagHandler if the value is the same as the previous one --
+--     playerState:set('me', nil, true)
+-- end)
 
 lib.addCommand('id', {help = locale('info.check_id')}, function(source)
     Notify(source, 'ID: ' .. source)
 end)
 
-lib.addCommand('logout', {
-    help = locale('info.logout_command_help'),
-    restricted = 'group.admin',
-}, Logout)
+-- lib.addCommand('logout', {
+--     help = locale('info.logout_command_help'),
+--     restricted = 'group.admin',
+-- }, Logout)
 
-lib.addCommand('deletechar', {
-    help = locale('info.deletechar_command_help'),
-    restricted = 'group.admin',
-    params = {
-        { name = 'id', help = locale('info.deletechar_command_arg_player_id'), type = 'number' },
-    }
-}, function(source, args)
-    local player = GetPlayer(args.id)
-    if not player then return end
+-- lib.addCommand('deletechar', {
+--     help = locale('info.deletechar_command_help'),
+--     restricted = 'group.admin',
+--     params = {
+--         { name = 'id', help = locale('info.deletechar_command_arg_player_id'), type = 'number' },
+--     }
+-- }, function(source, args)
+--     local player = GetPlayer(args.id)
+--     if not player then return end
 
-    local citizenId = player.PlayerData.citizenid
-    ForceDeleteCharacter(citizenId)
-    Notify(source, locale('success.character_deleted_citizenid', citizenId))
-end)
+--     local citizenId = player.PlayerData.citizenid
+--     ForceDeleteCharacter(citizenId)
+--     Notify(source, locale('success.character_deleted_citizenid', citizenId))
+-- end)
